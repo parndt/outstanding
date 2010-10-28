@@ -1,11 +1,3 @@
-module Outstanding
-  require 'pathname'
-
-  def self.root
-    Pathname.new(File.expand_path('../../../', __FILE__))
-  end
-end
-
 require 'rubygems'
 
 # Set up gems listed in the Gemfile.
@@ -20,11 +12,12 @@ if (gemfile = Outstanding.root.join('Gemfile')).file?
     STDERR.puts "Try running `bundle install`."
     exit!
   end
-
-  include Octopi
 end
 
 # Ensure everything exists.
 require 'fileutils'
 Outstanding.root.join('config').mkpath
-FileUtils::touch Outstanding.root.join('config', 'repositories.yml').to_s
+# Copy the example repositories file to be the file we want, if it doesn't exist.
+unless (yml = Outstanding.root.join('config', 'repositories.yml')).file?
+  FileUtils::cp "#{yml}.example", yml.to_s
+end
