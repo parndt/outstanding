@@ -21,5 +21,5 @@ config['repositories'].each do |repository|
   puts "forks: #{repo.forks}"
   puts "watchers: #{repo.watchers}"
   puts ""
-  `open "#{repo.url}/forkqueue"`
+  `open "#{repo.url}/forkqueue"` if repo.forks > 1
 end
