@@ -13,6 +13,7 @@ include Octopi
 
 config = ::YAML::load(::Outstanding.root.join('config', 'repositories.yml').read)
 config['repositories'].each do |repository|
+=begin
   repo = ::Repository.find(:user => repository['user'],
                            :repo => repository['repo'])
 
@@ -22,4 +23,6 @@ config['repositories'].each do |repository|
   puts "watchers: #{repo.watchers}"
   puts ""
   `open "#{repo.url}/forkqueue"` if repo.forks > 1
+=end
+  `open "https://github.com/#{repository['user']}/#{repository['repo']}/forkqueue"`
 end
